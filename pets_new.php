@@ -1,5 +1,4 @@
 <?php require 'lib/functions.php'; ?>
-<?php require 'layout/header.php'; ?>
 <?php
 
 // d($_SERVER);
@@ -46,8 +45,16 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
   file_put_contents('data/pets.json', $json);
 
   // d($name, $breed, $weight, $bio);
+
+  header('Location: /');
+  die();
+
+
 }
 ?>
+
+<?php require 'layout/header.php'; ?>
+
     <div class="container">
       <div class="row">
         <div class="col-xs-6">
