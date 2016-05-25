@@ -4,9 +4,18 @@
 require './vendor/autoload.php';
 
 function get_pets() {
-    $petsJson = file_get_contents('data/pets.json');
-    $pets = json_decode($petsJson, true);
-    return $pets;
+  $config = require 'lib/config.php';
+
+  $pdo = new PDO(
+    $config['database_dsn'],
+    $config['database_user'],
+    $config['database_pass']
+  ); // PDO class, returns pdo object we store in $pdo
+  //d($pdo);die;
+  $result = $pdo->query('SELECT * FROM pet'); // use query method of pdo obj
+  $pets = $result->fetchAll();
+  //d($rows);die;
+  return $pets;
 }
 
 function save_pets($petsToSave) {
