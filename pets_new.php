@@ -46,10 +46,10 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
   // d($name, $breed, $weight, $bio);
 
+  // redirect to homepage after form submission
+  // ensures no redundant submissions
   header('Location: /');
   die();
-
-
 }
 ?>
 
