@@ -1,6 +1,3 @@
-<?php
-    require 'lib/composer.php'
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
