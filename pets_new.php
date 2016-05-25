@@ -41,8 +41,8 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
   $pets[] = $newPet;
 
-  $json = json_encode($pets, JSON_PRETTY_PRINT);
-  file_put_contents('data/pets.json', $json);
+  save_pets($pets);
+
 
   // d($name, $breed, $weight, $bio);
 
