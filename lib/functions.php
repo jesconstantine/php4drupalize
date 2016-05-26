@@ -3,7 +3,7 @@
 // load composer packages automatically
 require './vendor/autoload.php';
 
-function get_pets() {
+function get_pets($limit = null) {
   $config = require 'lib/config.php';
 
   $pdo = new PDO(
@@ -12,7 +12,12 @@ function get_pets() {
     $config['database_pass']
   ); // PDO class, returns pdo object we store in $pdo
   //d($pdo);die;
-  $result = $pdo->query('SELECT * FROM pet'); // use query method of pdo obj
+  // WAIT! TODO - This is a security hole!
+  $query = 'SELECT * FROM pet';
+  if ($limit) {
+    $query .= ' LIMIT ' . $limit;
+  }
+  $result = $pdo->query($query); // use query method of pdo obj
   $pets = $result->fetchAll();
   //d($rows);die;
   return $pets;
