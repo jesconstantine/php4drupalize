@@ -3,22 +3,33 @@
 // load composer packages automatically
 require './vendor/autoload.php';
 
-function get_pets($limit = null) {
+function get_connection() {
   $config = require 'lib/config.php';
 
   $pdo = new PDO(
     $config['database_dsn'],
     $config['database_user'],
     $config['database_pass']
-  ); // PDO class, returns pdo object we store in $pdo
+  ); // PDO class, returns pdo object which we return
+
+  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
   //d($pdo);die;
-  // WAIT! TODO - This is a security hole!
+  return $pdo;
+}
+
+function get_pets($limit = null) {
+  $pdo = get_connection();
+  // address having variable in sql query (vulnerable to injection IE ; TRUNCATE pet;) by using prepared statements
   $query = 'SELECT * FROM pet';
   if ($limit) {
-    $query .= ' LIMIT ' . $limit;
+    $query .= ' LIMIT :resultLimit';
+
   }
-  $result = $pdo->query($query); // use query method of pdo obj
-  $pets = $result->fetchAll();
+  $stmt = $pdo->prepare($query);
+  $stmt->bindParam('resultLimit', $limit, PDO::PARAM_INT);
+  $stmt->execute();
+  return $stmt->fetchAll();
   //d($rows);die;
   return $pets;
 }
