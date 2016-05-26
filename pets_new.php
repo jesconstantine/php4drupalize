@@ -55,7 +55,6 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 
 <?php require 'layout/header.php'; ?>
 
-    <div class="container">
       <div class="row">
         <div class="col-xs-6">
           <h1>Add your pet!!! Squirrel!!!</h1>
